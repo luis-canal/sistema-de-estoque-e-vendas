@@ -4,10 +4,10 @@ class Fila:
         self._itens = []
 
     def enfileirar(self, item):
-        self._itens.append(item) # sempre vai adicionar no final da lista
+        self._itens.append(item)
 
     def desinfileirar(self):
-        if self.is_empty(): # a verdade para desinfileirar, é que precisar ter algum dado na fila
+        if self.is_empty():
             print("A fila está vazia")
             return
         
@@ -22,5 +22,5 @@ class Fila:
     def __len__(self):
         return len(self._itens)
 
-    def __str__(self): # representacao da fila como uma lista
+    def __str__(self):
         return str(self._itens)
