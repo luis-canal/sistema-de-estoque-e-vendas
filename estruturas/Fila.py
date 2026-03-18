@@ -11,10 +11,10 @@ class Fila:
             print("A fila está vazia")
             return
         
-        self._itens.pop(0)
+        return self._itens.pop(0)
 
     def proximo_a_sair_da_fila(self):
-        print(self._itens[0])
+        return self._itens[0]
     
     def is_empty(self):
         return len(self._itens) == 0
