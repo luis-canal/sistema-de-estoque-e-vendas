@@ -6,7 +6,7 @@ class Fila:
     def enfileirar(self, item):
         self._itens.append(item)
 
-    def desinfileirar(self):
+    def desenfileirar(self):
         if self.is_empty():
             print("A fila está vazia")
             return

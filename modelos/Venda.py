@@ -7,4 +7,4 @@ class Venda:
         self.cliente = cliente
         self.produto = produto
         self.quantidade = quantidade
-        self.valor_total = Produto.preco * quantidade
+        self.valor_total = produto.preco * quantidade

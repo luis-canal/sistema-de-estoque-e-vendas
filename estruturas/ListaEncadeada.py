@@ -40,19 +40,20 @@ class LSE:
     def remover_inicio(self):
         if self.is_empty():
             print("A lista está vazia.")
-            return
-        
+            return None
+
         self.quantidade_itens -= 1
 
+        nodo_removido = self.head
+        dado_removido = nodo_removido.valor
+
         if self.head == self.tail:
-            dado_removido = self.tail
             self.head = None
             self.tail = None
             return dado_removido
-        
-        dado_removido = self.head
-        self.head = dado_removido.proximo
-        dado_removido.proximo = None
+
+        self.head = nodo_removido.proximo
+        nodo_removido.proximo = None
 
         return dado_removido
         
@@ -100,3 +101,37 @@ class LSE:
             atual = atual.proximo
             
         print(saida)
+
+    def buscar(self, id):
+        atual = self.head
+        while atual:
+            if atual.valor.id == id:
+                return atual.valor
+            atual = atual.proximo
+        return None
+
+    def remover_por_id(self, id):
+        if self.is_empty():
+            return None
+        
+        atual = self.head
+        anterior = None
+
+        while atual:
+            if atual.valor.id == id:
+                self.quantidade_itens -= 1
+
+                if anterior is None:
+                    self.head = atual.proximo
+                    if atual == self.tail:
+                        self.tail = None
+                else:
+                    anterior.proximo = atual.proximo
+                    if atual == self.tail:
+                        self.tail = anterior
+                
+                return atual.valor
+            
+            anterior = atual
+            atual = atual.proximo
+        return None

@@ -1,33 +1,111 @@
+from estruturas.ListaEncadeada import LSE
+from estruturas.Pilha import Pilha
+from estruturas.Fila import Fila
+
 from modelos.Cliente import Cliente
 from modelos.Produto import Produto
 from modelos.Venda import Venda
 
-# Listas provisórias
-listaClientes = []
-listaProdutos = []
-listaVendas = []
+
+class SistemaEstoque:
+
+    def __init__(self):
+        self.produtos = LSE()
+        self.clientes = LSE()
+        self.vendas = Fila()
+        self.pilha = Pilha()  
 
 
-def cadastrarCliente():
-    nome = input("Nome do CLiente: ")
-    id = len(listaClientes) + 1
+    def _registrar_operacao(self, tipo, dados):
+        self.pilha.push({"tipo": tipo, "dados": dados})
 
-    cliente = Cliente(id, nome)
-    listaClientes.append(cliente)
+    def cadastrar_produto(self):
+        try:
+            p = Produto(
+                int(input("ID: ")),
+                input("Nome: "),
+                int(input("Quantidade: ")),
+                float(input("Preço: "))
+            )
 
-def listarClientes():
-    for cliente in listaClientes:
-        print(cliente.id, cliente.nome)
+            self.produtos.inserir_fim(p)
+            self._registrar_operacao("add_prod", p)
 
-def cadastrarProduto():
-    nome = input("Nome do Produto: ")
-    quantidade = int(input("Quantidade: "))
-    preco = float(input("Preço: "))
-    id = len(listaProdutos) + 1
+            print("Produto cadastrado")
 
-    produto = Produto(id, nome, quantidade, preco)
-    listaProdutos.append(produto)
+        except:
+            print("Erro")
 
-def listarProdutos():
-    for produto in listaProdutos:
-        print(produto.id, produto.nome, produto.quantidade, produto.preco)
+    def listar_produtos(self):
+        self.produtos.imprimir_lado_a_lado()
+
+    def buscar_produto(self, id):
+        return self.produtos.buscar(id)
+
+    def cadastrar_cliente(self):
+        try:
+            c = Cliente(
+                int(input("ID: ")),
+                input("Nome: ")
+            )
+
+            self.clientes.inserir_fim(c)
+            self._registrar_operacao("add_cli", c)
+
+            print("Cliente cadastrado")
+
+        except:
+            print("Erro")
+
+    def listar_clientes(self):
+        self.clientes.imprimir_lado_a_lado()
+
+    def buscar_cliente(self, id):
+        return self.clientes.buscar(id)
+
+    def registrar_venda(self):
+        try:
+            id = int(input("ID venda: "))
+            cliente = self.buscar_cliente(int(input("ID cliente: ")))
+            produto = self.buscar_produto(int(input("ID produto: ")))
+            qtd = int(input("Quantidade: "))
+
+            if not cliente or not produto:
+                print("Cliente ou produto inválido")
+                return
+
+            if produto.quantidade < qtd:
+                print("Estoque insuficiente")
+                return
+
+            venda = Venda(id, cliente, produto, qtd)
+
+            produto.quantidade -= qtd
+            self.vendas.enfileirar(venda)
+
+            self._registrar_operacao("venda", venda)
+
+            print("Venda realizada")
+
+        except:
+            print("Erro")
+
+    def desfazer(self):
+        if self.pilha.is_empty():
+            print("Nada para desfazer")
+            return
+
+        op = self.pilha.pop()
+
+        if op["tipo"] == "add_prod":
+            self.produtos.remover_por_id(op["dados"].id)
+
+        elif op["tipo"] == "add_cli":
+            self.clientes.remover_por_id(op["dados"].id)
+
+        elif op["tipo"] == "venda":
+            p = self.buscar_produto(op["dados"].produto.id)
+            if p:
+                p.quantidade += op["dados"].quantidade
+
+        print("Desfeito")
