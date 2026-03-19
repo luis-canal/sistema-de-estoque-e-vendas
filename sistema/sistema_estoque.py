@@ -14,7 +14,7 @@ class SistemaEstoque:
         self.clientes = LSE()
         self.vendas = Fila()
         self.pilha = Pilha()  
-
+        self.proximoIDCliente = 1
 
     def _registrar_operacao(self, tipo, dados):
         self.pilha.push({"tipo": tipo, "dados": dados})
@@ -41,18 +41,27 @@ class SistemaEstoque:
 
     def buscar_produto(self, id):
         return self.produtos.buscar(id)
+    
+    def _gerar_id_cliente(self):
+        idAtual = self.proximoIDCliente
+        self.proximoIDCliente += 1
+        return idAtual
 
     def cadastrar_cliente(self):
         try:
-            c = Cliente(
-                int(input("ID: ")),
-                input("Nome: ")
-            )
+            nomeCliente = input("Nome: ")
+            idCliente = self._gerar_id_cliente()
+
+            if len(nomeCliente.strip()) < 3:
+                print("Nome inválido! Insira um nome com pelo menos 3 caracteres.")
+                return
+
+            c = Cliente(idCliente, nomeCliente)
 
             self.clientes.inserir_fim(c)
             self._registrar_operacao("add_cli", c)
 
-            print("Cliente cadastrado")
+            print(f"Cliente cadastrado! ID: {idCliente} | Nome: {nomeCliente}")
 
         except:
             print("Erro")

@@ -27,7 +27,7 @@ def menu():
             sistema.listar_produtos()
 
         elif opcao == "5":
-            sistema.desfazer_ultima_operacao()
+            sistema.desfazer()
 
         elif opcao == "0":
             break
