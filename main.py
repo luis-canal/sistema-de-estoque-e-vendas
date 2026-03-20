@@ -10,9 +10,10 @@ def menu():
 # 2 - Listar clientes (certo)
 # 3 - Cadastrar produto (certo)
 # 4 - Listar produtos (certo)
-# remover cliente NOVO
-# remover produto NOVO
+# remover cliente NOVO (certo)
+# remover produto NOVO (certo)
 # 5 - Pesquisar produto 
+# pesquisar cliente NOVO
 # 6 - Realizar venda
 # 7 - Ver fila de vendas
 # 8 - Desfazer última operação (certo)
@@ -58,10 +59,12 @@ def menu():
         elif opcao == "0":
             print("Saindo...")
             time.sleep(2)
+            os.system("cls")
             break
 
         else:
             print("Opção inválida, tente novamente")
-
+            time.sleep(2)
+            os.system("cls")
 
 menu()

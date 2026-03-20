@@ -53,17 +53,20 @@ class SistemaEstoque:
             while atual:
                 if atual.valor.nome.lower() == nome.lower():
                     print("Já existe um produto com esse nome!")
+                    time.sleep(2)
                     return
                 atual = atual.proximo
 
             quantidade = int(input("Quantidade: "))
             while quantidade <= 0:
                 print("Quantidade inválida! Deve ser maior que 0.")
+                time.sleep(2)
                 quantidade = int(input("Quantidade: "))
 
             preco = float(input("Preço: "))
             while preco <= 0:
                 print("Preço inválido! Deve ser maior que 0.")
+                time.sleep(2)
                 preco = float(input("Preço: "))
 
             p = Produto(
@@ -77,7 +80,8 @@ class SistemaEstoque:
             self._registrar_operacao("add_prod", p)
             salvar_produtos(self.produtos)
 
-            print("Produto cadastrado")
+            print(f"Produto {nome} cadastrado com sucesso!")
+            time.sleep(2)
 
         except Exception as e:
             print(f"Erro: {e}")
@@ -93,6 +97,7 @@ class SistemaEstoque:
         try:
             if self.produtos.is_empty():
                 print("Nenhum produto cadastrado!")
+                time.sleep(2)
                 return
 
             id = int(input("ID do produto: "))
@@ -100,9 +105,11 @@ class SistemaEstoque:
 
             if removido:
                 salvar_produtos(self.produtos)
-                print("Produto removido!")
+                print(f"Produto {removido} removido!")
+                time.sleep(2)
             else:
                 print("Produto não encontrado!")
+                time.sleep(2)
 
         except Exception as e:
             print(f"Erro: {e}")
@@ -115,12 +122,13 @@ class SistemaEstoque:
     def cadastrar_cliente(self):
         try:
             nomeCliente = input("Nome: ")
-            idCliente = self._gerar_id_cliente()
 
             if len(nomeCliente.strip()) < 3:
                 print("Nome inválido! Insira um nome com pelo menos 3 caracteres.")
+                time.sleep(2)
                 return
 
+            idCliente = self._gerar_id_cliente()
             c = Cliente(idCliente, nomeCliente)
 
             self.clientes.inserir_fim(c)
@@ -128,6 +136,7 @@ class SistemaEstoque:
             salvar_clientes(self.clientes)
 
             print(f"Cliente cadastrado! ID: {idCliente} | Nome: {nomeCliente}")
+            time.sleep(2)
 
         except Exception as e:
             print(f"Erro: {e}")
@@ -143,6 +152,7 @@ class SistemaEstoque:
         try:
             if self.clientes.is_empty():
                 print("Nenhum cliente cadastrado!")
+                time.sleep(2)
                 return
 
             id = int(input("ID do cliente: "))
@@ -150,9 +160,11 @@ class SistemaEstoque:
 
             if removido:
                 salvar_clientes(self.clientes)
-                print("Cliente removido!")
+                print(f"Cliente {removido} removido com sucesso!")
+                time.sleep(2)
             else:
                 print("Cliente não encontrado!")
+                time.sleep(2)
 
         except Exception as e:
             print(f"Erro: {e}")
@@ -207,6 +219,7 @@ class SistemaEstoque:
                 self.vendas._itens.pop()
 
         print("Desfeito")
+        time.sleep(2)
         salvar_clientes(self.clientes)
         salvar_produtos(self.produtos)
         salvar_vendas(self.vendas)
