@@ -30,6 +30,7 @@ def menu():
         print("5 - Desfazer última operação")
         print("6 - Remover cliente(id)")
         print("7 - Remover produto(id)")
+        print("8 - Pesquisar produto")
         print("0 - Sair")
         print("========================")
 
@@ -55,6 +56,9 @@ def menu():
 
         elif opcao == "7":
             sistema.remover_produto()
+
+        elif opcao == "8":
+            sistema.pesquisar_produto_nome()
 
         elif opcao == "0":
             print("Saindo...")

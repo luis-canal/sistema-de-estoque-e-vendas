@@ -92,6 +92,26 @@ class SistemaEstoque:
 
     def buscar_produto(self, id):
         return self.produtos.buscar(id)
+    
+    def pesquisar_produto_nome(self):
+        try:
+            nome = input("Nome do produto: ")
+            produto = self.buscar_produto_por_nome(nome)
+
+            if produto:
+                print(f"""
+                    ID: {produto.id}
+                    Nome: {produto.nome}
+                    Quantidade: {produto.quantidade}
+                    Preço: R$ {produto.preco}
+                        """)
+                time.sleep(2)
+            else:
+                print("Produto não encontrado!")
+                time.sleep(2)
+
+        except Exception as e:
+            print(f"Erro: {e}")
 
     def remover_produto(self):
         try:
