@@ -79,8 +79,8 @@ class SistemaEstoque:
 
             print("Produto cadastrado")
 
-        except:
-            print("Erro")
+        except Exception as e:
+            print(f"Erro: {e}")
 
     def listar_produtos(self):
         self.produtos.imprimir_lado_a_lado()
@@ -104,8 +104,8 @@ class SistemaEstoque:
             else:
                 print("Produto não encontrado!")
 
-        except:
-            print("Erro")
+        except Exception as e:
+            print(f"Erro: {e}")
 
     def _gerar_id_cliente(self):
         idAtual = self.proximoIDCliente
@@ -129,8 +129,8 @@ class SistemaEstoque:
 
             print(f"Cliente cadastrado! ID: {idCliente} | Nome: {nomeCliente}")
 
-        except:
-            print("Erro")
+        except Exception as e:
+            print(f"Erro: {e}")
 
     def listar_clientes(self):
         self.clientes.imprimir_lado_a_lado()
@@ -154,8 +154,8 @@ class SistemaEstoque:
             else:
                 print("Cliente não encontrado!")
 
-        except:
-            print("Erro")
+        except Exception as e:
+            print(f"Erro: {e}")
 
     def registrar_venda(self):
         try:
