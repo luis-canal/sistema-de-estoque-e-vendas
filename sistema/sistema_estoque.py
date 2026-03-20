@@ -15,17 +15,43 @@ class SistemaEstoque:
         self.vendas = Fila()
         self.pilha = Pilha()  
         self.proximoIDCliente = 1
+        self.proximoIdProduto = 1
 
     def _registrar_operacao(self, tipo, dados):
         self.pilha.push({"tipo": tipo, "dados": dados})
 
+    def _gerar_id_produto(self):
+        idAtual = self.proximoIdProduto
+        self.proximoIdProduto += 1
+        return idAtual
+
     def cadastrar_produto(self):
         try:
+            nome = input("Nome: ")
+
+            #Brique pra impedir cadastro de nome duplicado
+            atual = self.produtos.head
+            while atual:
+                if atual.valor.nome.lower() == nome.lower():
+                    print("Já existe um produto com esse nome!")
+                    return
+                atual = atual.proximo
+
+            quantidade = int(input("Quantidade: "))
+            while quantidade <= 0:
+                print("Quantidade inválida! Deve ser maior que 0.")
+                quantidade = int(input("Quantidade: "))
+
+            preco = float(input("Preço: "))
+            while preco <= 0:
+                print("Preço inválido! Deve ser maior que 0.")
+                preco = float(input("Preço: "))
+
             p = Produto(
-                int(input("ID: ")),
-                input("Nome: "),
-                int(input("Quantidade: ")),
-                float(input("Preço: "))
+                self._gerar_id_produto(),
+                nome,
+                quantidade,
+                preco
             )
 
             self.produtos.inserir_fim(p)
@@ -41,7 +67,24 @@ class SistemaEstoque:
 
     def buscar_produto(self, id):
         return self.produtos.buscar(id)
-    
+
+    def remover_produto(self):
+        try:
+            if self.produtos.is_empty():
+                print("Nenhum produto cadastrado!")
+                return
+
+            id = int(input("ID do produto: "))
+            removido = self.produtos.remover_por_id(id)
+
+            if removido:
+                print("Produto removido!")
+            else:
+                print("Produto não encontrado!")
+
+        except:
+            print("Erro")
+
     def _gerar_id_cliente(self):
         idAtual = self.proximoIDCliente
         self.proximoIDCliente += 1
@@ -71,6 +114,23 @@ class SistemaEstoque:
 
     def buscar_cliente(self, id):
         return self.clientes.buscar(id)
+
+    def remover_cliente(self):
+        try:
+            if self.clientes.is_empty():
+                print("Nenhum cliente cadastrado!")
+                return
+
+            id = int(input("ID do cliente: "))
+            removido = self.clientes.remover_por_id(id)
+
+            if removido:
+                print("Cliente removido!")
+            else:
+                print("Cliente não encontrado!")
+
+        except:
+            print("Erro")
 
     def registrar_venda(self):
         try:
