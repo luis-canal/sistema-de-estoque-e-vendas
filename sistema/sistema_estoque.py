@@ -6,6 +6,8 @@ from modelos.Cliente import Cliente
 from modelos.Produto import Produto
 from modelos.Venda import Venda
 
+from sistema.persistencia import *
+
 import time
 
 
@@ -16,8 +18,23 @@ class SistemaEstoque:
         self.clientes = LSE()
         self.vendas = Fila()
         self.pilha = Pilha()  
+
         self.proximoIDCliente = 1
         self.proximoIdProduto = 1
+
+        carregar_clientes(self.clientes)
+        carregar_produtos(self.produtos)
+        carregar_vendas(self.vendas, self.clientes, self.produtos)
+
+        atual = self.clientes.head
+        while atual:
+            self.proximoIDCliente = max(self.proximoIDCliente, atual.valor.id + 1)
+            atual = atual.proximo
+
+        atual = self.produtos.head
+        while atual:
+            self.proximoIdProduto = max(self.proximoIdProduto, atual.valor.id + 1)
+            atual = atual.proximo
 
     def _registrar_operacao(self, tipo, dados):
         self.pilha.push({"tipo": tipo, "dados": dados})
@@ -58,6 +75,7 @@ class SistemaEstoque:
 
             self.produtos.inserir_fim(p)
             self._registrar_operacao("add_prod", p)
+            salvar_produtos(self.produtos)
 
             print("Produto cadastrado")
 
@@ -81,6 +99,7 @@ class SistemaEstoque:
             removido = self.produtos.remover_por_id(id)
 
             if removido:
+                salvar_produtos(self.produtos)
                 print("Produto removido!")
             else:
                 print("Produto não encontrado!")
@@ -106,6 +125,7 @@ class SistemaEstoque:
 
             self.clientes.inserir_fim(c)
             self._registrar_operacao("add_cli", c)
+            salvar_clientes(self.clientes)
 
             print(f"Cliente cadastrado! ID: {idCliente} | Nome: {nomeCliente}")
 
@@ -129,6 +149,7 @@ class SistemaEstoque:
             removido = self.clientes.remover_por_id(id)
 
             if removido:
+                salvar_clientes(self.clientes)
                 print("Cliente removido!")
             else:
                 print("Cliente não encontrado!")
@@ -157,11 +178,13 @@ class SistemaEstoque:
             self.vendas.enfileirar(venda)
 
             self._registrar_operacao("venda", venda)
+            salvar_vendas(self.vendas)
+            salvar_produtos(self.produtos)
 
             print("Venda realizada")
 
-        except:
-            print("Erro")
+        except Exception as e:
+            print(f"Erro: {e}")
 
     def desfazer(self):
         if self.pilha.is_empty():
@@ -180,5 +203,10 @@ class SistemaEstoque:
             p = self.buscar_produto(op["dados"].produto.id)
             if p:
                 p.quantidade += op["dados"].quantidade
+            if not self.vendas.is_empty():
+                self.vendas._itens.pop()
 
         print("Desfeito")
+        salvar_clientes(self.clientes)
+        salvar_produtos(self.produtos)
+        salvar_vendas(self.vendas)
