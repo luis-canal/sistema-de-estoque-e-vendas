@@ -6,6 +6,8 @@ from modelos.Cliente import Cliente
 from modelos.Produto import Produto
 from modelos.Venda import Venda
 
+import time
+
 
 class SistemaEstoque:
 
@@ -64,6 +66,7 @@ class SistemaEstoque:
 
     def listar_produtos(self):
         self.produtos.imprimir_lado_a_lado()
+        time.sleep(2)
 
     def buscar_produto(self, id):
         return self.produtos.buscar(id)
@@ -111,6 +114,7 @@ class SistemaEstoque:
 
     def listar_clientes(self):
         self.clientes.imprimir_lado_a_lado()
+        time.sleep(2)
 
     def buscar_cliente(self, id):
         return self.clientes.buscar(id)
