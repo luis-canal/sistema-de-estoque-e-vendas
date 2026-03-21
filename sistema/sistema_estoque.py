@@ -157,6 +157,15 @@ class SistemaEstoque:
                 print("Nome inválido! Insira um nome com pelo menos 3 caracteres.")
                 time.sleep(2)
                 return
+            
+            # Outro Brique para verificar nome duplicado
+            atual = self.clientes.head
+            while atual:
+                if atual.valor.nome.strip().lower() == nomeCliente.strip().lower():
+                    print("Já existe um cliente com esse nome!")
+                    time.sleep(2)
+                    return
+                atual = atual.proximo
 
             idCliente = self._gerar_id_cliente()
             c = Cliente(idCliente, nomeCliente)
