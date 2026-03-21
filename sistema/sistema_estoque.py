@@ -93,6 +93,16 @@ class SistemaEstoque:
     def buscar_produto(self, id):
         return self.produtos.buscar(id)
     
+    def buscar_produto_por_nome(self, nome):
+        atual = self.produtos.head
+
+        while atual:
+            if atual.valor.nome.lower() == nome.lower():
+                return atual.valor
+            atual = atual.proximo
+
+        return None
+
     def pesquisar_produto_nome(self):
         try:
             nome = input("Nome do produto: ")
