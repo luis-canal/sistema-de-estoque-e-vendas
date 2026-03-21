@@ -110,10 +110,10 @@ class SistemaEstoque:
 
             if produto:
                 print(f"""
-                    ID: {produto.id}
-                    Nome: {produto.nome}
-                    Quantidade: {produto.quantidade}
-                    Preço: R$ {produto.preco}
+ID: {produto.id}
+Nome: {produto.nome}
+Quantidade: {produto.quantidade}
+Preço: R$ {produto.preco}
                         """)
                 time.sleep(2)
             else:
@@ -204,8 +204,8 @@ class SistemaEstoque:
 
             if cliente:
                 print(f"""
-                    ID: {cliente.id}
-                    Nome: {cliente.nome}
+ID: {cliente.id}
+Nome: {cliente.nome}
                 """)
                 time.sleep(2)
             else:
