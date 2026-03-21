@@ -276,9 +276,11 @@ Nome: {cliente.nome}
 
         if op["tipo"] == "add_prod":
             self.produtos.remover_por_id(op["dados"].id)
+            print(f"Desfeito: cadastro do produto '{op['dados'].nome}'")
 
         elif op["tipo"] == "add_cli":
             self.clientes.remover_por_id(op["dados"].id)
+            print(f"Desfeito: cadastro do cliente '{op['dados'].nome}'")
 
         elif op["tipo"] == "venda":
             p = self.buscar_produto(op["dados"].produto.id)
@@ -286,15 +288,17 @@ Nome: {cliente.nome}
                 p.quantidade += op["dados"].quantidade
             if not self.vendas.is_empty():
                 self.vendas._itens.pop()
+            print(f"Desfeito: venda do produto '{op['dados'].produto.nome}' (quantidade: {op['dados'].quantidade})")
 
         elif op["tipo"] == "remover_prod":
             self.produtos.inserir_fim(op["dados"])
+            print(f"Desfeito: remoção do produto '{op['dados'].nome}'")
 
         elif op["tipo"] == "remover_cli":
             self.clientes.inserir_fim(op["dados"])
+            print(f"Desfeito: remoção do cliente '{op['dados'].nome}'")
 
-        print("Desfeito")
-        time.sleep(2)
+        time.sleep(4)
         salvar_clientes(self.clientes)
         salvar_produtos(self.produtos)
         salvar_vendas(self.vendas)
