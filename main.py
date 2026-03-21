@@ -6,6 +6,9 @@ def menu():
 
     while True:
 # ===== MENU ESTOQUE =====
+
+# *** fazer um negocio para só sair da fila de vendas, cliente e prodtos ao apertar alguma tecla
+
 # 1 - Cadastrar cliente (certo)
 # 2 - Listar clientes (certo)
 # 3 - Cadastrar produto (certo)
@@ -15,7 +18,7 @@ def menu():
 # 5 - Pesquisar produto (certo)
 # pesquisar cliente NOVO (certo)
 # 6 - Realizar venda (certo)
-# 7 - Ver fila de vendas
+# 7 - Ver fila de vendas (certo)
 # 8 - Desfazer última operação (certo)
 # 9 - Exibir valor total do estoque
 # 10 - Exibir valor total de vendas
@@ -34,6 +37,8 @@ def menu():
         print("9 - Pesquisar Cliente")
         print("10 - Realizar venda")
         print("11 - Listar vendas")
+        print("12 - Exibir valor total de estoque")
+        print("13 - Exibir valor total de vendas")
         print("0 - Sair")
         print("========================")
 
@@ -71,6 +76,12 @@ def menu():
         
         elif opcao == "11":
             sistema.listar_vendas()
+        
+        elif opcao == "12":
+            sistema.valor_total_estoque()
+        
+        elif opcao == "13":
+            sistema.valor_total_vendas()
 
         elif opcao == "0":
             print("Saindo...")

@@ -310,6 +310,45 @@ Total: R$ {venda.produto.preco * venda.quantidade:.2f}
         except Exception as e:
             print(f"Erro: {e}")
 
+    def valor_total_vendas(self):
+        try:
+            if self.vendas.is_empty():
+                print("Nenhuma venda registrada!")
+                time.sleep(2)
+                return
+
+            total = 0
+
+            for venda in self.vendas._itens:
+                total += venda.produto.preco * venda.quantidade
+
+            print(f"\n Valor total de vendas realizadas: R$ {total:.2f}")
+            time.sleep(3)
+
+        except Exception as e:
+            print(f"Erro: {e}")
+    
+    def valor_total_estoque(self):
+        try:
+            if self.produtos.is_empty():
+                print("Nenhum produto cadastrado!")
+                time.sleep(2)
+                return
+
+            total = 0
+            atual = self.produtos.head
+
+            while atual:
+                produto = atual.valor
+                total += produto.preco * produto.quantidade
+                atual = atual.proximo
+
+            print(f"\n Valor total do estoque: R$ {total:.2f}")
+            time.sleep(3)
+
+        except Exception as e:
+            print(f"Erro: {e}")
+
     def desfazer(self):
         if self.pilha.is_empty():
             print("Nada para desfazer")
