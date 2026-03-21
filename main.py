@@ -33,6 +33,7 @@ def menu():
         print("8 - Pesquisar produto")
         print("9 - Pesquisar Cliente")
         print("10 - Realizar venda")
+        print("11 - Listar vendas")
         print("0 - Sair")
         print("========================")
 
@@ -67,6 +68,9 @@ def menu():
         
         elif opcao == "10":
             sistema.registrar_venda()
+        
+        elif opcao == "11":
+            sistema.listar_vendas()
 
         elif opcao == "0":
             print("Saindo...")

@@ -245,7 +245,7 @@ Nome: {cliente.nome}
 
     def registrar_venda(self):
         try:
-            id = self._gerar_id_venda
+            id = self._gerar_id_venda()
             cliente = self.buscar_cliente(int(input("ID cliente: ")))
             produto = self.buscar_produto(int(input("ID produto: ")))
             qtd = int(input("Quantidade: "))
@@ -262,7 +262,7 @@ Nome: {cliente.nome}
 
             if produto.quantidade < qtd:
                 print("Estoque insuficiente, tente novamente!")
-                time.sleeP(2)
+                time.sleep(2)
                 return
 
             venda = Venda(id, cliente, produto, qtd)
@@ -281,6 +281,29 @@ Cliente: {cliente.nome}
 Produto: {produto.nome}
 Quantidade: {qtd}
 Total: R$ {produto.preco * qtd:.2f}
+""")
+            time.sleep(4)
+
+        except Exception as e:
+            print(f"Erro: {e}")
+
+    def listar_vendas(self):
+        try:
+            if self.vendas.is_empty():
+                print("Nenhuma venda registrada!")
+                time.sleep(2)
+                return
+
+            print("\n===== FILA DE VENDAS =====\n")
+
+            for venda in self.vendas._itens:
+                print(f"""
+ID: {venda.id}
+Cliente: {venda.cliente.nome}
+Produto: {venda.produto.nome}
+Quantidade: {venda.quantidade}
+Total: R$ {venda.produto.preco * venda.quantidade:.2f}
+---------------------------
 """)
             time.sleep(4)
 
