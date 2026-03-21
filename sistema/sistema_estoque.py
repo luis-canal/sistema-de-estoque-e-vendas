@@ -186,6 +186,34 @@ class SistemaEstoque:
 
     def buscar_cliente(self, id):
         return self.clientes.buscar(id)
+    
+    def buscar_cliente_por_nome(self, nome):
+        atual = self.clientes.head
+
+        while atual:
+            if atual.valor.nome.strip().lower() == nome.strip().lower():
+                return atual.valor
+            atual = atual.proximo
+
+        return None
+
+    def pesquisar_cliente_nome(self):
+        try:
+            nome = input("Nome do cliente: ")
+            cliente = self.buscar_cliente_por_nome(nome)
+
+            if cliente:
+                print(f"""
+                    ID: {cliente.id}
+                    Nome: {cliente.nome}
+                """)
+                time.sleep(2)
+            else:
+                print("Cliente não encontrado!")
+                time.sleep(2)
+
+        except Exception as e:
+            print(f"Erro: {e}")
 
     def remover_cliente(self):
         try:
