@@ -238,19 +238,31 @@ Nome: {cliente.nome}
         except Exception as e:
             print(f"Erro: {e}")
 
+    def _gerar_id_venda(self):
+        if self.vendas.is_empty():
+            return 1
+        return self.vendas._itens[-1].id + 1
+
     def registrar_venda(self):
         try:
-            id = int(input("ID venda: "))
+            id = self._gerar_id_venda
             cliente = self.buscar_cliente(int(input("ID cliente: ")))
             produto = self.buscar_produto(int(input("ID produto: ")))
             qtd = int(input("Quantidade: "))
 
             if not cliente or not produto:
-                print("Cliente ou produto inválido")
+                print("Cliente ou produto inválido, tente novamente!")
+                time.sleep(2)
+                return
+
+            if qtd <= 0:
+                print("Quantidade inválida, tente novamente!")
+                time.sleep(2)
                 return
 
             if produto.quantidade < qtd:
-                print("Estoque insuficiente")
+                print("Estoque insuficiente, tente novamente!")
+                time.sleeP(2)
                 return
 
             venda = Venda(id, cliente, produto, qtd)
@@ -262,7 +274,15 @@ Nome: {cliente.nome}
             salvar_vendas(self.vendas)
             salvar_produtos(self.produtos)
 
-            print("Venda realizada")
+            print(f"""
+Venda realizada com sucesso!
+ID: {id}
+Cliente: {cliente.nome}
+Produto: {produto.nome}
+Quantidade: {qtd}
+Total: R$ {produto.preco * qtd:.2f}
+""")
+            time.sleep(4)
 
         except Exception as e:
             print(f"Erro: {e}")

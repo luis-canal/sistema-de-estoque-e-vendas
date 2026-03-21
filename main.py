@@ -12,9 +12,9 @@ def menu():
 # 4 - Listar produtos (certo)
 # remover cliente NOVO (certo)
 # remover produto NOVO (certo)
-# 5 - Pesquisar produto 
-# pesquisar cliente NOVO
-# 6 - Realizar venda
+# 5 - Pesquisar produto (certo)
+# pesquisar cliente NOVO (certo)
+# 6 - Realizar venda (certo)
 # 7 - Ver fila de vendas
 # 8 - Desfazer última operação (certo)
 # 9 - Exibir valor total do estoque
@@ -32,6 +32,7 @@ def menu():
         print("7 - Remover produto(id)")
         print("8 - Pesquisar produto")
         print("9 - Pesquisar Cliente")
+        print("10 - Realizar venda")
         print("0 - Sair")
         print("========================")
 
@@ -63,6 +64,9 @@ def menu():
 
         elif opcao == "9":
             sistema.pesquisar_cliente_nome()
+        
+        elif opcao == "10":
+            sistema.registrar_venda()
 
         elif opcao == "0":
             print("Saindo...")
