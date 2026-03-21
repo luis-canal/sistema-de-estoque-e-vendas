@@ -134,6 +134,7 @@ Preço: R$ {produto.preco}
             removido = self.produtos.remover_por_id(id)
 
             if removido:
+                self._registrar_operacao("remover_prod", removido)
                 salvar_produtos(self.produtos)
                 print(f"Produto {removido} removido!")
                 time.sleep(2)
@@ -226,6 +227,7 @@ Nome: {cliente.nome}
             removido = self.clientes.remover_por_id(id)
 
             if removido:
+                self._registrar_operacao("remover_cli", removido)
                 salvar_clientes(self.clientes)
                 print(f"Cliente {removido} removido com sucesso!")
                 time.sleep(2)
@@ -284,6 +286,12 @@ Nome: {cliente.nome}
                 p.quantidade += op["dados"].quantidade
             if not self.vendas.is_empty():
                 self.vendas._itens.pop()
+
+        elif op["tipo"] == "remover_prod":
+            self.produtos.inserir_fim(op["dados"])
+
+        elif op["tipo"] == "remover_cli":
+            self.clientes.inserir_fim(op["dados"])
 
         print("Desfeito")
         time.sleep(2)
