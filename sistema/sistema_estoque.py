@@ -348,6 +348,36 @@ Total: R$ {venda.produto.preco * venda.quantidade:.2f}
 
         except Exception as e:
             print(f"Erro: {e}")
+    
+    def clientes_valores_gastos(self):
+        try:
+            if self.vendas.is_empty():
+                print("Nenhuma venda registrada!")
+                time.sleep(2)
+                return
+
+            gastos = {}  
+
+            for venda in self.vendas._itens:
+                nome = venda.cliente.nome
+                total = venda.produto.preco * venda.quantidade
+
+                if nome in gastos:
+                    gastos[nome] += total
+                else:
+                    gastos[nome] = total
+
+            print("\n ===== GASTOS POR CLIENTE =====\n")
+
+            for cliente, valor in gastos.items():
+                print(f"Cliente: {cliente}")
+                print(f"Total gasto: R$ {valor:.2f}")
+                print("---------------------------")
+
+            time.sleep(4)
+
+        except Exception as e:
+            print(f"Erro: {e}")
 
     def desfazer(self):
         if self.pilha.is_empty():

@@ -20,9 +20,9 @@ def menu():
 # 6 - Realizar venda (certo)
 # 7 - Ver fila de vendas (certo)
 # 8 - Desfazer última operação (certo)
-# 9 - Exibir valor total do estoque
-# 10 - Exibir valor total de vendas
-# 11 - Exibir clientes e valores gastos
+# 9 - Exibir valor total do estoque (certo)
+# 10 - Exibir valor total de vendas (certo)
+# 11 - Exibir clientes e valores gastos 
 # 12 - Sair (certo)
 # ========================
         print("\n===== MENU ESTOQUE =====")
@@ -39,6 +39,7 @@ def menu():
         print("11 - Listar vendas")
         print("12 - Exibir valor total de estoque")
         print("13 - Exibir valor total de vendas")
+        print("14 - Exibir clientes e valores gastos")
         print("0 - Sair")
         print("========================")
 
@@ -82,6 +83,9 @@ def menu():
         
         elif opcao == "13":
             sistema.valor_total_vendas()
+        
+        elif opcao == "14":
+            sistema.clientes_valores_gastos()
 
         elif opcao == "0":
             print("Saindo...")
