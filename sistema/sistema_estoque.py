@@ -36,6 +36,9 @@ class SistemaEstoque:
             self.proximoIdProduto = max(self.proximoIdProduto, atual.valor.id + 1)
             atual = atual.proximo
 
+    def pausar(self):
+        input("\nPressione ENTER para voltar ao menu...")
+
     def _registrar_operacao(self, tipo, dados):
         self.pilha.push({"tipo": tipo, "dados": dados})
 
@@ -53,7 +56,7 @@ class SistemaEstoque:
             while atual:
                 if atual.valor.nome.lower() == nome.lower():
                     print("Já existe um produto com esse nome!")
-                    time.sleep(2)
+                    self.pausar()
                     return
                 atual = atual.proximo
 
@@ -81,14 +84,14 @@ class SistemaEstoque:
             salvar_produtos(self.produtos)
 
             print(f"Produto {nome} cadastrado com sucesso!")
-            time.sleep(2)
+            self.pausar()
 
         except Exception as e:
             print(f"Erro: {e}")
 
     def listar_produtos(self):
         self.produtos.imprimir_lado_a_lado()
-        time.sleep(2)
+        self.pausar()
 
     def buscar_produto(self, id):
         return self.produtos.buscar(id)
@@ -115,10 +118,10 @@ Nome: {produto.nome}
 Quantidade: {produto.quantidade}
 Preço: R$ {produto.preco}
                         """)
-                time.sleep(2)
+                self.pausar()
             else:
                 print("Produto não encontrado!")
-                time.sleep(2)
+                self.pausar()
 
         except Exception as e:
             print(f"Erro: {e}")
@@ -127,7 +130,7 @@ Preço: R$ {produto.preco}
         try:
             if self.produtos.is_empty():
                 print("Nenhum produto cadastrado!")
-                time.sleep(2)
+                self.pausar()
                 return
 
             id = int(input("ID do produto: "))
@@ -137,10 +140,10 @@ Preço: R$ {produto.preco}
                 self._registrar_operacao("remover_prod", removido)
                 salvar_produtos(self.produtos)
                 print(f"Produto {removido} removido!")
-                time.sleep(2)
+                self.pausar()
             else:
                 print("Produto não encontrado!")
-                time.sleep(2)
+                self.pausar()
 
         except Exception as e:
             print(f"Erro: {e}")
@@ -156,7 +159,7 @@ Preço: R$ {produto.preco}
 
             if len(nomeCliente.strip()) < 3:
                 print("Nome inválido! Insira um nome com pelo menos 3 caracteres.")
-                time.sleep(2)
+                self.pausar()
                 return
             
             # Outro Brique para verificar nome duplicado
@@ -164,7 +167,7 @@ Preço: R$ {produto.preco}
             while atual:
                 if atual.valor.nome.strip().lower() == nomeCliente.strip().lower():
                     print("Já existe um cliente com esse nome!")
-                    time.sleep(2)
+                    self.pausar()
                     return
                 atual = atual.proximo
 
@@ -176,14 +179,14 @@ Preço: R$ {produto.preco}
             salvar_clientes(self.clientes)
 
             print(f"Cliente cadastrado! ID: {idCliente} | Nome: {nomeCliente}")
-            time.sleep(2)
+            self.pausar()
 
         except Exception as e:
             print(f"Erro: {e}")
 
     def listar_clientes(self):
         self.clientes.imprimir_lado_a_lado()
-        time.sleep(2)
+        self.pausar()
 
     def buscar_cliente(self, id):
         return self.clientes.buscar(id)
@@ -208,10 +211,10 @@ Preço: R$ {produto.preco}
 ID: {cliente.id}
 Nome: {cliente.nome}
                 """)
-                time.sleep(2)
+                self.pausar()
             else:
                 print("Cliente não encontrado!")
-                time.sleep(2)
+                self.pausar()
 
         except Exception as e:
             print(f"Erro: {e}")
@@ -220,7 +223,7 @@ Nome: {cliente.nome}
         try:
             if self.clientes.is_empty():
                 print("Nenhum cliente cadastrado!")
-                time.sleep(2)
+                self.pausar()
                 return
 
             id = int(input("ID do cliente: "))
@@ -230,10 +233,10 @@ Nome: {cliente.nome}
                 self._registrar_operacao("remover_cli", removido)
                 salvar_clientes(self.clientes)
                 print(f"Cliente {removido} removido com sucesso!")
-                time.sleep(2)
+                self.pausar()
             else:
                 print("Cliente não encontrado!")
-                time.sleep(2)
+                self.pausar()
 
         except Exception as e:
             print(f"Erro: {e}")
@@ -282,7 +285,7 @@ Produto: {produto.nome}
 Quantidade: {qtd}
 Total: R$ {produto.preco * qtd:.2f}
 """)
-            time.sleep(4)
+            self.pausar()
 
         except Exception as e:
             print(f"Erro: {e}")
@@ -291,7 +294,7 @@ Total: R$ {produto.preco * qtd:.2f}
         try:
             if self.vendas.is_empty():
                 print("Nenhuma venda registrada!")
-                time.sleep(2)
+                self.pausar()
                 return
 
             print("\n===== FILA DE VENDAS =====\n")
@@ -305,7 +308,7 @@ Quantidade: {venda.quantidade}
 Total: R$ {venda.produto.preco * venda.quantidade:.2f}
 ---------------------------
 """)
-            time.sleep(4)
+            self.pausar()
 
         except Exception as e:
             print(f"Erro: {e}")
@@ -314,7 +317,7 @@ Total: R$ {venda.produto.preco * venda.quantidade:.2f}
         try:
             if self.vendas.is_empty():
                 print("Nenhuma venda registrada!")
-                time.sleep(2)
+                self.pausar()
                 return
 
             total = 0
@@ -323,7 +326,7 @@ Total: R$ {venda.produto.preco * venda.quantidade:.2f}
                 total += venda.produto.preco * venda.quantidade
 
             print(f"\n Valor total de vendas realizadas: R$ {total:.2f}")
-            time.sleep(3)
+            self.pausar()
 
         except Exception as e:
             print(f"Erro: {e}")
@@ -332,7 +335,7 @@ Total: R$ {venda.produto.preco * venda.quantidade:.2f}
         try:
             if self.produtos.is_empty():
                 print("Nenhum produto cadastrado!")
-                time.sleep(2)
+                self.pausar()
                 return
 
             total = 0
@@ -344,7 +347,7 @@ Total: R$ {venda.produto.preco * venda.quantidade:.2f}
                 atual = atual.proximo
 
             print(f"\n Valor total do estoque: R$ {total:.2f}")
-            time.sleep(3)
+            self.pausar()
 
         except Exception as e:
             print(f"Erro: {e}")
@@ -353,7 +356,7 @@ Total: R$ {venda.produto.preco * venda.quantidade:.2f}
         try:
             if self.vendas.is_empty():
                 print("Nenhuma venda registrada!")
-                time.sleep(2)
+                self.pausar()
                 return
 
             gastos = {}  
@@ -374,7 +377,7 @@ Total: R$ {venda.produto.preco * venda.quantidade:.2f}
                 print(f"Total gasto: R$ {valor:.2f}")
                 print("---------------------------")
 
-            time.sleep(4)
+            self.pausar()
 
         except Exception as e:
             print(f"Erro: {e}")
@@ -410,7 +413,7 @@ Total: R$ {venda.produto.preco * venda.quantidade:.2f}
             self.clientes.inserir_fim(op["dados"])
             print(f"Desfeito: remoção do cliente '{op['dados'].nome}'")
 
-        time.sleep(4)
+        self.pausar()
         salvar_clientes(self.clientes)
         salvar_produtos(self.produtos)
         salvar_vendas(self.vendas)
