@@ -7,4 +7,4 @@ class Produto:
         self.preco = preco
 
     def __str__(self):
-        return f"{self.id} - {self.nome} | Qtd: {self.quantidade} | R$ {self.preco}"
+        return f"{self.id} - {self.nome} | Qtd: {self.quantidade} | R$ {self.preco:.2f}"
