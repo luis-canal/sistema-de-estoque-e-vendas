@@ -100,8 +100,31 @@ class SistemaEstoque:
             print(f"Erro: {e}")
 
     def listar_produtos(self):
-        self.produtos.imprimir_lado_a_lado()
-        self.pausar()
+        try:
+            if self.produtos.is_empty():
+                print("Nenhum produto cadastrado!")
+                self.pausar()
+                return
+
+            print("\n===== LISTA DE PRODUTOS =====\n")
+
+            atual = self.produtos.head
+
+            while atual:
+                p = atual.valor
+                print(f"""
+    ID: {p.id}
+    Nome: {p.nome}
+    Quantidade: {p.quantidade}
+    Preço: R$ {p.preco:.2f}
+    ---------------------------
+    """)
+                atual = atual.proximo
+
+            self.pausar()
+
+        except Exception as e:
+            print(f"Erro: {e}")
 
     def buscar_produto(self, id):
         return self.produtos.buscar(id)
@@ -200,8 +223,29 @@ Preço: R$ {produto.preco}
             print(f"Erro: {e}")
 
     def listar_clientes(self):
-        self.clientes.imprimir_lado_a_lado()
-        self.pausar()
+        try:
+            if self.clientes.is_empty():
+                print("Nenhum cliente cadastrado!")
+                self.pausar()
+                return
+
+            print("\n===== LISTA DE CLIENTES =====\n")
+
+            atual = self.clientes.head
+
+            while atual:
+                c = atual.valor
+                print(f"""
+    ID: {c.id}
+    Nome: {c.nome}
+    ---------------------------
+    """)
+                atual = atual.proximo
+
+            self.pausar()
+
+        except Exception as e:
+            print(f"Erro: {e}")
 
     def buscar_cliente(self, id):
         return self.clientes.buscar(id)
