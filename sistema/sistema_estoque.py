@@ -64,7 +64,12 @@ class SistemaEstoque:
                     return
                 atual = atual.proximo
 
-            quantidade = int(input("Quantidade: "))
+            try:
+                quantidade = int(input("Quantidade: "))
+            except ValueError:
+                print("Digite um número válido para quantidade!")
+                self.pausar()
+                return
             while quantidade <= 0:
                 print("Quantidade inválida! Deve ser maior que 0.")
                 time.sleep(2)
