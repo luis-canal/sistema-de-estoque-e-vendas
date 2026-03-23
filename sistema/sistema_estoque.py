@@ -47,61 +47,57 @@ class SistemaEstoque:
         self.proximoIdProduto += 1
         return idAtual
 
-    def cadastrar_produto(self):
-        try:
-            nome = input("Nome: ")
-            if not nome.strip():
-                print("Nome do produto não pode ser vazio!")
+def cadastrar_produto(self):
+    try:
+        nome = input("Nome: ")
+
+        if not nome.strip():
+            print("Nome do produto não pode ser vazio!")
+            self.pausar()
+            return
+
+        atual = self.produtos.head
+        while atual:
+            if atual.valor.nome.lower() == nome.lower():
+                print("Já existe um produto com esse nome!")
                 self.pausar()
                 return
+            atual = atual.proximo
 
-            #Brique pra impedir cadastro de nome duplicado
-            atual = self.produtos.head
-            while atual:
-                if atual.valor.nome.lower() == nome.lower():
-                    print("Já existe um produto com esse nome!")
-                    self.pausar()
-                    return
-                atual = atual.proximo
-
+        while True:
             try:
                 quantidade = int(input("Quantidade: "))
+                if quantidade > 0:
+                    break
+                print("Quantidade deve ser maior que 0.")
             except ValueError:
                 print("Digite um número válido para quantidade!")
-                self.pausar()
-                return
-            while quantidade <= 0:
-                print("Quantidade inválida! Deve ser maior que 0.")
-                time.sleep(2)
-                quantidade = int(input("Quantidade: "))
 
+        while True:
             try:
                 preco = float(input("Preço: "))
+                if preco > 0:
+                    break
+                print("Preço deve ser maior que 0.")
             except ValueError:
                 print("Digite um valor válido para o preço!")
-                self.pausar()
-            return
-            while preco <= 0:
-                print("Preço inválido! Deve ser maior que 0.")
-                time.sleep(2)
-                preco = float(input("Preço: "))
 
-            p = Produto(
-                self._gerar_id_produto(),
-                nome,
-                quantidade,
-                preco
-            )
+        p = Produto(
+            self._gerar_id_produto(),
+            nome,
+            quantidade,
+            preco
+        )
 
-            self.produtos.inserir_fim(p)
-            self._registrar_operacao("add_prod", p)
-            salvar_produtos(self.produtos)
+        self.produtos.inserir_fim(p)
+        self._registrar_operacao("add_prod", p)
+        salvar_produtos(self.produtos)
 
-            print(f"Produto {nome} cadastrado com sucesso!")
-            self.pausar()
+        print(f"Produto '{nome}' cadastrado com sucesso!")
+        self.pausar()
 
-        except Exception as e:
-            print(f"Erro: {e}")
+    except Exception as e:
+        print(f"Erro: {e}")
 
     def listar_produtos(self):
         self.produtos.imprimir_lado_a_lado()
