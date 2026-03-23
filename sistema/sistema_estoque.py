@@ -47,57 +47,57 @@ class SistemaEstoque:
         self.proximoIdProduto += 1
         return idAtual
 
-def cadastrar_produto(self):
-    try:
-        nome = input("Nome: ")
+    def cadastrar_produto(self):
+        try:
+            nome = input("Nome: ")
 
-        if not nome.strip():
-            print("Nome do produto não pode ser vazio!")
-            self.pausar()
-            return
-
-        atual = self.produtos.head
-        while atual:
-            if atual.valor.nome.lower() == nome.lower():
-                print("Já existe um produto com esse nome!")
+            if not nome.strip():
+                print("Nome do produto não pode ser vazio!")
                 self.pausar()
                 return
-            atual = atual.proximo
 
-        while True:
-            try:
-                quantidade = int(input("Quantidade: "))
-                if quantidade > 0:
-                    break
-                print("Quantidade deve ser maior que 0.")
-            except ValueError:
-                print("Digite um número válido para quantidade!")
+            atual = self.produtos.head
+            while atual:
+                if atual.valor.nome.lower() == nome.lower():
+                    print("Já existe um produto com esse nome!")
+                    self.pausar()
+                    return
+                atual = atual.proximo
 
-        while True:
-            try:
-                preco = float(input("Preço: "))
-                if preco > 0:
-                    break
-                print("Preço deve ser maior que 0.")
-            except ValueError:
-                print("Digite um valor válido para o preço!")
+            while True:
+                try:
+                    quantidade = int(input("Quantidade: "))
+                    if quantidade > 0:
+                        break
+                    print("Quantidade deve ser maior que 0.")
+                except ValueError:
+                    print("Digite um número válido para quantidade!")
 
-        p = Produto(
-            self._gerar_id_produto(),
-            nome,
-            quantidade,
-            preco
-        )
+            while True:
+                try:
+                    preco = float(input("Preço: "))
+                    if preco > 0:
+                        break
+                    print("Preço deve ser maior que 0.")
+                except ValueError:
+                    print("Digite um valor válido para o preço!")
 
-        self.produtos.inserir_fim(p)
-        self._registrar_operacao("add_prod", p)
-        salvar_produtos(self.produtos)
+            p = Produto(
+                self._gerar_id_produto(),
+                nome,
+                quantidade,
+                preco
+            )
 
-        print(f"Produto '{nome}' cadastrado com sucesso!")
-        self.pausar()
+            self.produtos.inserir_fim(p)
+            self._registrar_operacao("add_prod", p)
+            salvar_produtos(self.produtos)
 
-    except Exception as e:
-        print(f"Erro: {e}")
+            print(f"Produto '{nome}' cadastrado com sucesso!")
+            self.pausar()
+
+        except Exception as e:
+            print(f"Erro: {e}")
 
     def listar_produtos(self):
         self.produtos.imprimir_lado_a_lado()
@@ -144,7 +144,7 @@ Preço: R$ {produto.preco}
                 return
 
             try:
-                id = int(input("ID cliente: "))
+                id = int(input("ID produto: "))
             except ValueError:
                 print("ID inválido! Digite um número.")
                 self.pausar()
@@ -277,14 +277,18 @@ Nome: {cliente.nome}
                 return
             cliente = self.buscar_cliente(id_cliente)
             try:
-                id_produto = int(input("ID cliente: "))
+                id_produto = int(input("ID produto: "))
             except ValueError:
                 print("ID inválido! Digite um número.")
                 self.pausar()
                 return
-            produto = self.buscar_cliente(id_produto)
-            qtd = int(input("Quantidade: "))
-
+            produto = self.buscar_produto(id_produto)
+            try:
+                qtd = int(input("Quantidade: "))
+            except ValueError:
+                print("Quantidade inválida!")
+                self.pausar()
+                return
             if not cliente or not produto:
                 print("Cliente ou produto inválido, tente novamente!")
                 time.sleep(2)
