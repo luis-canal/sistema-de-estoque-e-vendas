@@ -381,7 +381,7 @@ Total: R$ {venda.produto.preco * venda.quantidade:.2f}
 
             print("\n ===== GASTOS POR CLIENTE =====\n")
 
-            for cliente, valor in gastos.items():
+            for cliente, valor in sorted(gastos.items(), key=lambda x: x[1], reverse=True):
                 print(f"Cliente: {cliente}")
                 print(f"Total gasto: R$ {valor:.2f}")
                 print("---------------------------")
