@@ -394,6 +394,7 @@ Total: R$ {venda.produto.preco * venda.quantidade:.2f}
     def desfazer(self):
         if self.pilha.is_empty():
             print("Nada para desfazer")
+            self.pausar()
             return
 
         op = self.pilha.pop()
