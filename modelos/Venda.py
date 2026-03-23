@@ -8,4 +8,4 @@ class Venda:
         self.valor_total = produto.preco * quantidade
 
     def __str__(self):
-        return f"Venda {self.id} | Cliente: {self.cliente.nome} | Produto: {self.produto.nome} | Qtd: {self.quantidade} | Total: {self.valor_total}"
+        return f"Venda {self.id} | Cliente: {self.cliente.nome} | Produto: {self.produto.nome} | Qtd: {self.quantidade} | Total: {self.valor_total:.2f}"
