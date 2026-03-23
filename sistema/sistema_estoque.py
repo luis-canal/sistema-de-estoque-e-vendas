@@ -147,7 +147,12 @@ Preço: R$ {produto.preco}
                 self.pausar()
                 return
 
-            id = int(input("ID do produto: "))
+            try:
+                id = int(input("ID cliente: "))
+            except ValueError:
+                print("ID inválido! Digite um número.")
+                self.pausar()
+                return
             removido = self.produtos.remover_por_id(id)
 
             if removido:
@@ -240,7 +245,12 @@ Nome: {cliente.nome}
                 self.pausar()
                 return
 
-            id = int(input("ID do cliente: "))
+            try:
+                id = int(input("ID cliente: "))
+            except ValueError:
+                print("ID inválido! Digite um número.")
+                self.pausar()
+                return
             removido = self.clientes.remover_por_id(id)
 
             if removido:
@@ -263,8 +273,20 @@ Nome: {cliente.nome}
     def registrar_venda(self):
         try:
             id = self._gerar_id_venda()
-            cliente = self.buscar_cliente(int(input("ID cliente: ")))
-            produto = self.buscar_produto(int(input("ID produto: ")))
+            try:
+                id_cliente = int(input("ID cliente: "))
+            except ValueError:
+                print("ID inválido! Digite um número.")
+                self.pausar()
+                return
+            cliente = self.buscar_cliente(id_cliente)
+            try:
+                id_produto = int(input("ID cliente: "))
+            except ValueError:
+                print("ID inválido! Digite um número.")
+                self.pausar()
+                return
+            produto = self.buscar_cliente(id_produto)
             qtd = int(input("Quantidade: "))
 
             if not cliente or not produto:
