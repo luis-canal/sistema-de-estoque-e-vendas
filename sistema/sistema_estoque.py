@@ -75,7 +75,12 @@ class SistemaEstoque:
                 time.sleep(2)
                 quantidade = int(input("Quantidade: "))
 
-            preco = float(input("Preço: "))
+            try:
+                preco = float(input("Preço: "))
+            except ValueError:
+                print("Digite um valor válido para o preço!")
+                self.pausar()
+            return
             while preco <= 0:
                 print("Preço inválido! Deve ser maior que 0.")
                 time.sleep(2)
