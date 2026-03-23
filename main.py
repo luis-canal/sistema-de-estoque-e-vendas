@@ -22,7 +22,7 @@ def menu():
 # 8 - Desfazer última operação (certo)
 # 9 - Exibir valor total do estoque (certo)
 # 10 - Exibir valor total de vendas (certo)
-# 11 - Exibir clientes e valores gastos 
+# 11 - Exibir clientes e valores gastos (certo)
 # 12 - Sair (certo)
 # ========================
         print("\n===== MENU ESTOQUE =====")

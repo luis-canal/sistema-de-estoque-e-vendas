@@ -50,6 +50,10 @@ class SistemaEstoque:
     def cadastrar_produto(self):
         try:
             nome = input("Nome: ")
+            if not nome.strip():
+                print("Nome do produto não pode ser vazio!")
+                self.pausar()
+                return
 
             #Brique pra impedir cadastro de nome duplicado
             atual = self.produtos.head
