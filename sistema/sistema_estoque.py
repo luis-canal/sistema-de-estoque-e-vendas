@@ -38,6 +38,7 @@ class SistemaEstoque:
 
     def pausar(self):
         input("\nPressione ENTER para voltar ao menu...")
+        os.system("cls")
 
     def _registrar_operacao(self, tipo, dados):
         self.pilha.push({"tipo": tipo, "dados": dados})
